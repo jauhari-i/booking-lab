@@ -1,0 +1,56 @@
+user
+{
+
+    'id',
+    'name',
+    'email',
+    'password',
+    'created_at',
+    'img',
+    'id_kelas',
+    'level',
+}
+kelas
+{
+    'id_kelas',
+    'kelas',
+    'jurusan',
+}
+lab
+{
+    'id_lab',
+    'nama_lab',
+    'status',
+    'deskripsi',
+    'img',
+    'kapasitas',
+    'created_at',
+}
+pinjam
+{
+    'id_pinjam'
+    'id',
+    'id_lab',
+    'tgl_pinjam',
+    'tgl_transaksi',
+    'tgl_kembali',
+    'status',
+    'admin',
+}
+
+//Base URL 
+
+$_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+
+    <?php 
+        if(isset($_SESSION['error'])){
+            ?>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                    <?= $_SESSION['error'] ?>
+              </div>
+            <?php
+            unset($_SESSION['error']);
+        }
+      ?>
