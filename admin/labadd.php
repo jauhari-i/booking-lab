@@ -26,9 +26,6 @@
                 header('location: ../admin/index');
             }
         }
-
-        // $register_query = mysqli_query($myDB,"INSERT INTO `users` (`id_user`, `nama`, `id_kelas`, `email`, `password`, `img`, `admin`, `tgl_register`) VALUES (NULL, '$name', NULL, '$email', '$password', LOAD_FILE('C:/xampp/htdocs/bookinglav/assets/default.png'), '0', CURRENT_TIMESTAMP);");
-
     }
     // print_r($_REQUEST);
 ?>
@@ -100,7 +97,7 @@
                         foreach ($tokens as $unit => $text) {
                             if ($time < $unit) continue;
                             $numberOfUnits = floor($time / $unit);
-                            return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
+                            return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'':'');
                         }
 
                     }
