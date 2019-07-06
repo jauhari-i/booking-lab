@@ -75,4 +75,4 @@ $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
                 });
                 }
   assets/suite/          });
-    </script>
+    </scrip

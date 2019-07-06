@@ -113,7 +113,7 @@
             <?php foreach($lab as $data): ?>
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="hotel-room text-center">
-                    <a href="#" class="d-block mb-4 thumbnail"><img src="data:image/jpeg;base64,<?= base64_encode( $data['img'] )?>" style="max-height: 200px;" alt="Image" class="img-fluid"></a>
+                    <a href="user/labform" class="d-block mb-4 thumbnail"><img src="data:image/jpeg;base64,<?= base64_encode( $data['img'] )?>" style="max-height: 200px;" alt="Image" class="img-fluid"></a>
                     <div class="hotel-room-body">
                         <h3 class="heading mb-0"><a href="#"><?= $data['nama_lab'] ?></a></h3>
                         <strong class="price"><?= $data['deskripsi'] ?></strong><br>

@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../assets/suite/css/aos.css">
 
     <link rel="stylesheet" href="../assets/suite/css/style.css">
+    <link rel="stylesheet" href="../assets/fontaws/css/all.min.css">
 
 
     

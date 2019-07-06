@@ -25,7 +25,7 @@
                 $_SESSION['error'] = "Your Password Is Not Same";
             }else {
                 $realpass = sha1($pass);
-                $update = mysqli_query($myDB,"UPDATE users SET password='$realpass' ");
+                $update = mysqli_query($myDB,"UPDATE users SET password='$realpass' WHERE id_user = '$id' ");
                 $_SESSION['success'] = "Success Change Password";
                 header("location: ../admin/profile?id=$id");
             }

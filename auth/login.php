@@ -74,6 +74,16 @@ if(isset($_POST['login'])) {
 </head>
 
 <body class="hold-transition login-page">
+    <?php 
+        if(isset($_SESSION['error'])){
+    ?>
+        <script>
+                alert('<?= $_SESSION['error'] ?>');
+        </script>
+    <?php
+        unset($_SESSION['error']);
+        }
+    ?>
     <div class="login-box">
         <div class="login-logo">
             <a href="../"><b>Labku</b>.id</a>
