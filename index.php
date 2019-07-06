@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <?php include "guest/head.php"; ?>
+    <?php 
+        include "guest/head.php"; 
+        include "conn.php";
+
+        session_start();
+
+        $teams = mysqli_query($myDB,"SELECT * FROM users INNER JOIN kelas ON users.id_kelas=kelas.id_kelas WHERE admin = '1' ");
+        $lab = mysqli_query($myDB,"SELECT * FROM lab ORDER BY nama_lab ")
+    ?>
   </head>
   <body>
   
@@ -35,9 +43,9 @@
                       <li class="active">
                         <a href="">Home</a>
                       </li>
-                      <li><a href="#">Events</a></li>
-                      <li><a href="#">About</a></li>
-                      <li><a href="#">Teams</a></li>
+                      <li><a onclick="document.getElementById('lab').scrollIntoView({ behavior: 'smooth' });" style="cursor: pointer;">Lab</a></li>
+                      <li><a onclick="document.getElementById('fitur').scrollIntoView({ behavior: 'smooth' });" style="cursor: pointer;">FItur</a></li>
+                      <li><a onclick="document.getElementById('team').scrollIntoView({ behavior: 'smooth' });" style="cursor: pointer;">Teams</a></li>
                       <li class="has-children">
                         <p style="margin-top: 10px;" class="btn btn-primary btn-flat">Login / Register</p>
                         <ul class="dropdown">
@@ -59,35 +67,34 @@
     
     <div class="slide-one-item home-slider owl-carousel">
       
-      <div class="site-blocks-cover overlay" style="background-image: url(assets/suite/images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="site-blocks-cover overlay" style="background-image: url(assets/bg-02.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center" data-aos="fade">
-              
-              <h1 class="mb-2">Welcome To Suites</h1>
-              <h2 class="caption">Hotel &amp; Resort</h2>
+            <div class="col-md-10 text-center" data-aos="fade">  
+              <h1 class="mb-2">Selamat Datang</h1>
+              <h2 class="caption">Di Labku.id</h2>
             </div>
           </div>
         </div>
       </div>  
 
-      <div class="site-blocks-cover overlay" style="background-image: url(assets/suite/images/hero_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="site-blocks-cover overlay" style="background-image: url(assets/bg-01.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center" data-aos="fade">
-              <h1 class="mb-2">Unique Experience</h1>
-              <h2 class="caption">Enjoy With Us</h2>
+            <div class="col-md-10 text-center" data-aos="fade">
+              <h1 class="mb-2">Website Peminjaman Lab</h1>
+              <h2 class="caption">SMK TELKOM MALANG</h2>
             </div>
           </div>
         </div>
       </div> 
 
-      <div class="site-blocks-cover overlay" style="background-image: url(assets/suite/images/hero_3.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="site-blocks-cover overlay" style="background-image: url(assets/bg-03.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center" data-aos="fade">
-              <h1 class="mb-2">Relaxing Room</h1>
-              <h2 class="caption">Your Room, Your Stay</h2>
+            <div class="col-md-10 text-center" data-aos="fade">
+              <h1 class="mb-2">Gak Perlu Ribet</h1>
+              <h2 class="caption">Mudah Digunakan</h2>
             </div>
           </div>
         </div>
@@ -95,204 +102,86 @@
 
     </div>
 
-    <div class="site-section bg-light">
+    <div id="lab" class="site-section bg-light">
       <div class="container">
         <div class="row">
           <div class="col-md-6 mx-auto text-center mb-5 section-heading">
-            <h2 class="mb-5">Our Rooms</h2>
+            <h2 class="mb-5">Lab Kami</h2>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-0 thumbnail"><img src="assets/suite/images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              <div class="hotel-room-body">
-                <h3 class="heading mb-0"><a href="#">Standard Room</a></h3>
-                <strong class="price">$350.00 / per night</strong>
-              </div>
+            <?php foreach($lab as $data): ?>
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="hotel-room text-center">
+                    <a href="#" class="d-block mb-4 thumbnail"><img src="data:image/jpeg;base64,<?= base64_encode( $data['img'] )?>" style="max-height: 200px;" alt="Image" class="img-fluid"></a>
+                    <div class="hotel-room-body">
+                        <h3 class="heading mb-0"><a href="#"><?= $data['nama_lab'] ?></a></h3>
+                        <strong class="price"><?= $data['deskripsi'] ?></strong><br>
+                        <small><?= $data['status_lab'] ?></small>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-0 thumbnail"><img src="assets/suite/images/img_2.jpg" alt="Image" class="img-fluid"></a>
-              <div class="hotel-room-body">
-                <h3 class="heading mb-0"><a href="#">Family Room</a></h3>
-                <strong class="price">$400.00 / per night</strong>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-0 thumbnail"><img src="assets/suite/images/img_3.jpg" alt="Image" class="img-fluid"></a>
-              <div class="hotel-room-body">
-                <h3 class="heading mb-0"><a href="#">Single Room</a></h3>
-                <strong class="price">$255.00 / per night</strong>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-0 thumbnail"><img src="assets/suite/images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              <div class="hotel-room-body">
-                <h3 class="heading mb-0"><a href="#">Deluxe Room</a></h3>
-                <strong class="price">$150.00 / per night</strong>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-0 thumbnail"><img src="assets/suite/images/img_2.jpg" alt="Image" class="img-fluid"></a>
-              <div class="hotel-room-body">
-                <h3 class="heading mb-0"><a href="#">Luxury Room</a></h3>
-                <strong class="price">$200.00 / per night</strong>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-0 thumbnail"><img src="assets/suite/images/img_3.jpg" alt="Image" class="img-fluid"></a>
-              <div class="hotel-room-body">
-                <h3 class="heading mb-0"><a href="#">Single Room</a></h3>
-                <strong class="price">$155.00 / per night</strong>
-              </div>
-            </div>
-          </div>
+            <?php endforeach; ?>
         </div>
       </div>
     </div>
 
-    <div class="site-section">
+    <div id="fitur" class="site-section">
       <div class="container">
         <div class="row">
           <div class="col-md-6 mx-auto text-center mb-5 section-heading">
-            <h2 class="mb-5">Hotel Features</h2>
+            <h2 class="mb-5">Fitur Lab</h2>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center p-4 item">
-              <span class="flaticon-pool display-3 mb-3 d-block text-primary"></span>
-              <h2 class="h5">Swimming Pool</h2>
+              <span><img src="assets/ico (1).png" style="width: 50px;height:50px;" ></span>
+              <h2 class="h5">Wi Fi</h2>
             </div>
           </div>
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center p-4 item">
-              <span class="flaticon-desk display-3 mb-3 d-block text-primary"></span>
-              <h2 class="h5">Hotel Teller</h2>
+              <span><img src="assets/ico (2).png" style="width: 50px;height:50px;" ></span>
+              <h2 class="h5">Full AC</h2>
             </div>
           </div>
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center p-4 item">
-              <span class="flaticon-exit display-3 mb-3 d-block text-primary"></span>
-              <h2 class="h5">Fire Exit</h2>
+              <span><img src="assets/ico (3).png" style="width: 50px;height:50px;" ></span>
+              <h2 class="h5">Kabel Ethernet</h2>
             </div>
           </div>
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center p-4 item">
-              <span class="flaticon-parking display-3 mb-3 d-block text-primary"></span>
-              <h2 class="h5">Car Parking</h2>
-            </div>
-          </div>
-
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="text-center p-4 item">
-              <span class="flaticon-hair-dryer display-3 mb-3 d-block text-primary"></span>
-              <h2 class="h5">Hair Dryer</h2>
-            </div>
-          </div>
-
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="text-center p-4 item">
-              <span class="flaticon-minibar display-3 mb-3 d-block text-primary"></span>
-              <h2 class="h5">Minibar</h2>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="text-center p-4 item">
-              <span class="flaticon-drink display-3 mb-3 d-block text-primary"></span>
-              <h2 class="h5">Drinks</h2>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="text-center p-4 item">
-              <span class="flaticon-cab display-3 mb-3 d-block text-primary"></span>
-              <h2 class="h5">Car Airport</h2>
+              <span><img src="assets/ico (4).png" style="width: 50px;height:50px;" ></span>
+              <h2 class="h5">PC Desktop</h2>
             </div>
           </div>
         </div>
       </div>
     </div>
     
-    <div class="site-section bg-light">
+    <div id="team" class="site-section bg-light">
       <div class="container">
         <div class="row">
           <div class="col-md-6 mx-auto text-center mb-5 section-heading">
-            <h2 class="mb-5">Hotel Staffs</h2>
+            <h2 class="mb-5">Booking Tim</h2>
           </div>
         </div>
         <div class="row">
+          <?php foreach($teams as $data): ?>
           <div class="col-md-6 col-lg-4 mb-5">
             <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-4 thumbnail"><img src="assets/suite/images/person_1.jpg" alt="Image" class="img-fluid"></a>
+              <a href="#" class="d-block mb-4 thumbnail"><img src="data:image/jpeg;base64,<?= base64_encode( $data['img'] )?>" alt="Image" class="img-fluid"></a>
               <div class="p-4">
-                <h3 class="heading mb-3"><a href="#">Angella Lopez</a></h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta labore recusandae soluta quis.</p>
-                <p><a href="#" class="text-primary">Read More <span class="icon-arrow-right small"></span></a></p>
+                <h3 class="heading mb-3"><a href="#"><?= $data['nama'] ?></a></h3>
+                <p><?= $data['email'] ?></p>
+                <p><?= $data['kelas'] ?></p>
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-4 thumbnail"><img src="assets/suite/images/person_2.jpg" alt="Image" class="img-fluid"></a>
-              <div class="p-4">
-              <h3 class="heading mb-3"><a href="#">Marina Stalks</a></h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta labore recusandae soluta quis.</p>
-              <p><a href="#" class="text-primary">Read More <span class="icon-arrow-right small"></span></a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-4 thumbnail"><img src="assets/suite/images/person_3.jpg" alt="Image" class="img-fluid"></a>
-              <div class="p-4">
-              <h3 class="heading mb-3"><a href="#">Ethan Hoover</a></h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta labore recusandae soluta quis.</p>
-              <p><a href="#" class="text-primary">Read More <span class="icon-arrow-right small"></span></a></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-4 thumbnail"><img src="assets/suite/images/person_4.jpg" alt="Image" class="img-fluid"></a>
-              <div class="p-4">
-              <h3 class="heading mb-3"><a href="#">Megan Pearson</a></h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta labore recusandae soluta quis.</p>
-              <p><a href="#" class="text-primary">Read More <span class="icon-arrow-right small"></span></a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-4 thumbnail"><img src="assets/suite/images/person_1.jpg" alt="Image" class="img-fluid"></a>
-              <div class="p-4">
-              <h3 class="heading mb-3"><a href="#">Cristine Smith</a></h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta labore recusandae soluta quis.</p>
-              <p><a href="#" class="text-primary">Read More <span class="icon-arrow-right small"></span></a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <div class="hotel-room text-center">
-              <a href="#" class="d-block mb-4 thumbnail"><img src="assets/suite/images/person_2.jpg" alt="Image" class="img-fluid"></a>
-              <div class="p-4">
-              <h3 class="heading mb-3"><a href="#">Marina Stalks</a></h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta labore recusandae soluta quis.</p>
-              <p><a href="#" class="text-primary">Read More <span class="icon-arrow-right small"></span></a></p>
-              </div>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
@@ -303,25 +192,24 @@
           <div class="col-md-4 text-center">
             <div>
               <span class="icon-room text-white h2 d-block"></span>
-              <h2>Location</h2>
-              <p class="mb-0">New York - 2398 <br>  10 Hadson Carl Street</p>
+              <h2>Lokasi</h2>
+              <p class="mb-0">SMK Telkom Malang <br>  Sawojajar, Kota Malang</p>
             </div>
           </div>
           <div class="col-md-4 text-center">
             <div>
               <span class="icon-clock-o text-white h2 d-block"></span>
-              <h2>Service Times</h2>
-              <p class="mb-0">Wednesdays at 6:30PM - 7:30PM <br>
-              Fridays at Sunset - 7:30PM <br>
-              Saturdays at 8:00AM - Sunset</p>
+              <h2>Waktu Beroperasi</h2>
+              <p class="mb-0">Senin - Kamis -> 07:00 - 15:00 <br>
+              Jumat -> 07.00 - 10:00 -> 13.00 - 15.00 <br>
+              Sabtu - Minggu Libur</p>
             </div>
           </div>
           <div class="col-md-4 text-center">
             <div>
               <span class="icon-comments text-white h2 d-block"></span>
-              <h2>Get In Touch</h2>
-              <p class="mb-0">Email: info@yoursite.com <br>
-              Phone: (123) 3240-345-9348 </p>
+              <h2>Hubungi Kami</h2>
+              <p class="mb-0">Hubungi Tim <br> Diatas</p>
             </div>
           </div>
         </div>
@@ -335,24 +223,10 @@
     <?php 
         include "guest/footer.php";
     ?>
-  <script>
-      document.addEventListener('DOMContentLoassets/suite/aded', function() {
-                var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
-
-                for (var i = 0; i < total; i++) {
-                    new MediaElementPlayer(mediaElements[i], {
-                        pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                        shimScriptAccess: 'always',
-                        success: function () {
-                            var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
-                            for (var j = 0; j < targetTotal; j++) {
-                                target[j].style.visibility = 'visible';
-                            }
-                  }
-                });
-                }
-  assets/suite/          });
+    <script>
+    $(document).ready(function(){
+        $(this).scrollTop(0);
+    });
     </script>
-
   </body>
 </html>
