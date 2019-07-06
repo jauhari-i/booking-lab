@@ -54,3 +54,6 @@ $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
             unset($_SESSION['error']);
         }
       ?>
+
+
+      <p>Please <a href="auth/login.php">Login</a> Or <a href="auth/register.php">Register</a> To Continue</p>
