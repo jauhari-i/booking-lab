@@ -75,22 +75,22 @@ if(isset($_POST['login'])) {
 
 <body class="hold-transition login-page">
     <?php 
-        if(isset($_SESSION['error'])){
+        if(isset($_SESSION['log'])){
     ?>
         <script>
-                alert('<?= $_SESSION['error'] ?>');
+                alert('<?= $_SESSION['log'] ?>');
         </script>
     <?php
-        unset($_SESSION['error']);
+        unset($_SESSION['log']);
         }
     ?>
-    <div class="login-box">
+    <div class="login-box" style="width: 500px;" >
         <div class="login-logo">
             <a href="../"><b>Labku</b>.id</a>
         </div>
         <!-- /.login-logo -->
-        <div class="login-box-body">
-            <p class="login-box-msg">Masuk Bos</p>
+        <div class="login-box-body" style=" height:300px;">
+            <p class="login-box-msg ">Masuk Bos</p>
 
             <form action="login" method="POST">
                 <div class="form-group has-feedback">

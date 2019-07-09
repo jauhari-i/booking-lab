@@ -17,7 +17,7 @@
                 $_SESSION['success'] = "Lab Data Modifed Successfully";    
             }else{
                 $file = addslashes(file_get_contents($_FILES['pp']['tmp_name']));
-                $update = mysqli_query($myDB,"UPDATE `lab` SET nama_lab='$nama_lab',deskripsi='$deskripsi',kapasitas='$kapasitas',status_lab ='$status',img='$file' WHERE `id_lab` = '$id'");  
+                $update = mysqli_query($myDB,"UPDATE `lab` SET nama_lab='$nama_lab',deskripsi='$deskripsi',kapasitas='$kapasitas',status_lab ='$status',img_lab='$file' WHERE `id_lab` = '$id'");  
                 $_SESSION['success'] = "Lab Data Modifed Successfully";
             }
         // echo $nama_lab,$deskripsi,$kapasitas;
@@ -239,7 +239,7 @@
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="data:image/jpeg;base64,<?= base64_encode( $lab['img'] )?>" alt="User profile picture">
+              <img class=" img-responsive" src="data:image/jpeg;base64,<?= base64_encode( $lab['img_lab'] )?>" alt="User profile picture">
 
               <h3 class="profile-username text-center"><?= $lab['nama_lab'] ?></h3>
 

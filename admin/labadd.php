@@ -18,7 +18,7 @@
         if(mysqli_num_rows($cek) > 0){
             $_SESSION['error'] = "Nama Lab Telah Terpakai";
         }else{
-            $addLab = mysqli_query($myDB,"INSERT INTO  `lab` (`id_lab`,`nama_lab`,`deskripsi`,`img`,`kapasitas`,`status_lab`,`lab_created_at`) VALUES (NULL,'$nama_lab','$deskripsi','$file','$kapasitas','$status',CURRENT_TIMESTAMP)");
+            $addLab = mysqli_query($myDB,"INSERT INTO  `lab` (`id_lab`,`nama_lab`,`deskripsi`,`img_lab`,`kapasitas`,`status_lab`,`lab_created_at`) VALUES (NULL,'$nama_lab','$deskripsi','$file','$kapasitas','$status',CURRENT_TIMESTAMP)");
             if($addLab){
                 $last_id = mysqli_insert_id($myDB);
 

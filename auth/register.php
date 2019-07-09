@@ -100,7 +100,7 @@ if(isset($_POST['register']))
 </head>
 
 <body class="hold-transition register-page">
-  <div class="register-box">
+  <div class="register-box" style="width:500px;">
     <div class="register-logo">
       <a href="../"><b>Labku</b>.id</a>
     </div>

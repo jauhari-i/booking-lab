@@ -39,11 +39,7 @@
     <?php 
         include '../admin/head.php';
     ?>
-    <style>
-        ul.pagination {
-            display: none;
-        }
-    </style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -161,7 +157,7 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="treeview menu-open">
+                    <li class="treeview ">
                         <a href="#">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             <span class="pull-right-container">
@@ -321,11 +317,9 @@
                 <div class="row">
                     <!-- Left col -->
                     <div class="col-md-8">
-
-
                         <!-- TABLE: LATEST ORDERS -->
-                        <div class="box box-info">
-                            <div class="box-header with-border">
+                        <div class="box">
+                            <div class="box-header ">
                                 <h3 class="box-title">Peminjaman</h3>
 
                                 <div class="box-tools pull-right">
@@ -340,6 +334,7 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
+                                                <th>No.</th>
                                                 <th>ID Peminjaman</th>
                                                 <th>Peminjam</th>
                                                 <th>Lab</th>
@@ -350,17 +345,11 @@
                                         </thead>
                                         <tbody>
                                             <?php
+                                                $no = 1;
                                                 foreach($pinjam as $data):
                                             ?>
                                             <tr>
-                                                <?php
-                                                if($data['id_pinjam'] < 1)
-                                                {
-                                                    ?>
-                                                <td>Tidak Ada Data</td>
-                                                <?php
-                                                }else {
-                                                    ?>
+                                                <td><?= $no ?></td>
                                                 <td><a href="../admin/pinjamdtl?id=<?= $data['id_pinjam'] ?>&uid=<?= $uid ?>">LPJ<?= $data['id_pinjam'] ?></a></td>
                                                 <td><?= $data['nama'] ?></td>
                                                 <td><?= $data['nama_lab'] ?></td>
@@ -386,18 +375,16 @@
                                                 </td>
                                                 <td>
                                                     <?php
+                                                    
                                                         $id_admin = $data['admin'];
                                                         $admin = mysqli_fetch_assoc(mysqli_query($myDB,"SELECT * FROM users WHERE id_user = '$id_admin' "));
 
                                                         echo $admin['nama'];
                                                     ?>
                                                 </td>
-                                                <?php
-                                                    }
-                                                ?>
                                             </tr>
                                             <?php
-                                                endforeach;
+                                               $no++; endforeach;
                                             ?>
                                         </tbody>
                                     </table>
@@ -435,7 +422,7 @@
                                     ?>
                                     <li class="item">
                                         <div class="product-img">
-                                            <img src="data:image/jpeg;base64,<?= base64_encode( $data['img'] )?>" alt="Product Image">
+                                            <img src="data:image/jpeg;base64,<?= base64_encode( $data['img_lab'] )?>" alt="Product Image">
                                         </div>
                                         <div class="product-info">
                                             <a href="../admin/lab?id=<?= $data['id_lab'] ?>&uid=<?= $uid ?>" class="product-title"><?= $data['nama_lab'] ?>
@@ -482,15 +469,16 @@
     include '../admin/script.php';
     ?>
     <script>
-          $(function () {
+    $(function() {
     $('#example1').DataTable({
       'paging'      : true,
       'lengthChange': true,
-      'searching'   : false,
+      'searching'   : true,
       'ordering'    : false,
       'info'        : true,
       'autoWidth'   : false
-    })})
+    })
+    })
     </script>
 </body>
 

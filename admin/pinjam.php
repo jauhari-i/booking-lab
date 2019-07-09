@@ -13,6 +13,7 @@ if(isset($_POST['simpan'])){
     $id_lab = $_POST['lab'];
     $in = $_POST['datein'];
     $out = $_POST['dateout'];
+    $alasan = $_POST['als'];
     $status = "-";
 
     $cek = mysqli_query($myDB,"SELECT * FROM pinjam WHERE tgl_pinjam ='$in' AND id_lab ='$id_lab' AND status='$status' ");
@@ -27,7 +28,7 @@ if(isset($_POST['simpan'])){
         }else{
             // echo "HRAra";
             // $insert = mysqli_query($myDB,"INSERT INTO `pinjam`(`id_pinjam`, `id`, `id_lab`, `tgl_pinjam`, `tgl_kembali`, `status`, `admin`, `created_at`) VALUES (NULL, '$id_user', '$id_lab', '$in', '$out', '$status', NULL, CURRENT_TIMESTAMP); ");
-            $insert = mysqli_query($myDB,"INSERT INTO `pinjam`(`id_pinjam`, `id`, `id_lab`, `tgl_pinjam`, `tgl_kembali`, `status`, `admin`, `created_at`) VALUES (NULL, '$id_user', '$id_lab', '$in', '$out', '$status', '$id', CURRENT_TIMESTAMP); ");
+            $insert = mysqli_query($myDB,"INSERT INTO `pinjam`(`id_pinjam`, `id`, `id_lab`,`alasan`, `tgl_pinjam`, `tgl_kembali`, `status`, `admin`, `created_at`) VALUES (NULL, '$id_user', '$id_lab', '$alasan', '$in', '$out', '$status', '$id', CURRENT_TIMESTAMP); ");
             if($insert){
                 $last_id = mysqli_insert_id($myDB);
                 // echo $last_id;
@@ -299,6 +300,13 @@ if(isset($_POST['simpan'])){
 
                     <div class="col-sm-10">
                       <input type="date" class="form-control" name="dateout" id="inputEmail" placeholder="Tanggal Pinjam" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="als" class="col-sm-2 control-label">Keperluan</label>
+
+                    <div class="col-sm-10">
+                      <textarea class="form-control" name="als" id="als" cols="30" rows="7"></textarea>
                     </div>
                   </div>
                   <div class="form-group">

@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <?php 
-        include "../guest/head.php"; 
+<?php
         include "../conn.php";
 
         session_start();
@@ -14,10 +10,17 @@
             $id = $_SESSION['id'];
 
             $user = mysqli_fetch_assoc(mysqli_query($myDB,"SELECT * FROM users WHERE id_user = '$id' "));
+            
         }else{
             $_SESSION['error'] = "Please Log In First !";
             header("location: ../auth/login");
         }
+
+?><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <?php 
+        include "../guest/head.php"; 
     ?>
   </head>
   <body>
@@ -51,13 +54,18 @@
                     <ul class="site-menu js-clone-nav d-none d-lg-block">
                       <li class="active">
                         <a href="">Home</a>
-                      </li>
+                      </li> 
                       <li><a onclick="document.getElementById('lab').scrollIntoView({ behavior: 'smooth' });" style="cursor: pointer;">Lab</a></li>
                       <li><a onclick="document.getElementById('fitur').scrollIntoView({ behavior: 'smooth' });" style="cursor: pointer;">FItur</a></li>
                       <li><a onclick="document.getElementById('team').scrollIntoView({ behavior: 'smooth' });" style="cursor: pointer;">Teams</a></li>
                       <li class="has-children">
                         <p style="margin-top: 10px;" class="btn btn-primary btn-flat"><i class="fa fa-user" aria-hidden="true"></i> <?= $user['nama'] ?></p>
                         <ul class="dropdown">
+                        <?php 
+                            if($user['admin'] == 1){
+                                ?><li><a href="../admin">Admin Dashboard</a></li><?php
+                            }
+                        ?>
                           <li><a href="../user/profile?id=<?= $id ?>">Lihat Profil</a></li>
                           <li><a href="../user/peminjaman">Lihat Peminjaman</a></li>
                           <li><a href="../auth/logout">Log Out <i class="fas fa-external-link-alt    "></i></a></li>
@@ -122,7 +130,7 @@
             <?php foreach($lab as $data): ?>
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="hotel-room text-center">
-                    <a href="../user/labform" class="d-block mb-4 thumbnail"><img src="data:image/jpeg;base64,<?= base64_encode( $data['img'] )?>" style="max-height: 200px;" alt="Image" class="img-fluid"></a>
+                    <a href="../user/labform?id=<?= $data['id_lab'] ?>" class="d-block mb-4 thumbnail"><img src="data:image/jpeg;base64,<?= base64_encode( $data['img_lab'] )?>" style="max-height: 200px;" alt="Image" class="img-fluid"></a>
                     <div class="hotel-room-body">
                         <h3 class="heading mb-0"><a href="#"><?= $data['nama_lab'] ?></a></h3>
                         <strong class="price"><?= $data['deskripsi'] ?></strong><br>
